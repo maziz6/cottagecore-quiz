@@ -3,67 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <title>Cottagecore Quiz</title>
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      font-family: 'Quicksand', sans-serif;
-      background: #fff8f0;
+      font-family: 'Outfit', sans-serif;
+      background: linear-gradient(135deg, #fdf6f0, #f7e4d8);
       padding: 2rem;
-      color: #4b3b36;
+      color: #3e3028;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
     }
 
     .form-container {
-      max-width: 500px;
-      margin: auto;
-      background: #ffffff;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(12px);
+      border-radius: 1.5rem;
       padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-      position: relative;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .progress {
       height: 8px;
       background: #f0e1d6;
-      border-radius: 4px;
-      margin-bottom: 1rem;
+      border-radius: 999px;
       overflow: hidden;
+      margin-bottom: 1.5rem;
     }
 
     .bar {
       height: 100%;
-      background: #b89c8a;
+      background: linear-gradient(90deg, #dda89b, #c69a87);
       width: 25%;
       transition: width 0.4s ease-in-out;
     }
 
-    input[type="radio"] {
-      display: none;
-    }
-
-    .steps label.step-label {
-      display: inline-block;
-      width: 40px;
-      height: 40px;
-      line-height: 40px;
-      background: #fae6dd;
-      border-radius: 50%;
-      text-align: center;
-      margin: 0 5px;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      transition: all 0.2s ease-in-out;
-    }
-
     .steps {
       text-align: center;
-      margin-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .step-label {
+      display: inline-block;
+      width: 42px;
+      height: 42px;
+      background: #ffeae1;
+      color: #5a453b;
+      border-radius: 50%;
+      line-height: 42px;
+      margin: 0 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .step-label:hover {
+      transform: scale(1.1);
     }
 
     .step {
       display: none;
+      animation: fadeIn 0.6s ease forwards;
     }
 
     #step1:checked ~ .form-container .bar { width: 25%; }
@@ -79,69 +94,73 @@
     }
 
     .step p {
-      margin-bottom: 1rem;
+      margin-bottom: 1.2rem;
       font-size: 1.1rem;
     }
 
     .step input[type="text"],
     .step select {
-      display: block;
-      margin: 0.5rem auto;
-      padding: 0.6rem 1rem;
-      width: 80%;
+      width: 100%;
+      padding: 0.8rem 1rem;
+      margin-bottom: 1rem;
       font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 0.5rem;
-      background: #f9f4ef;
+      border-radius: 0.75rem;
+      border: 1px solid #ddd0c6;
+      background: #fffdfc;
+      transition: 0.2s ease;
     }
 
     .step label.next {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 0.6rem 1.2rem;
-      background: #f3d7c4;
-      border-radius: 0.5rem;
-      cursor: pointer;
-      font-weight: bold;
+      display: block;
+      background: #f6cdbd;
+      padding: 0.7rem 1.5rem;
       text-align: center;
-      transition: 0.3s;
+      border-radius: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
     }
 
     .step label.next:hover {
-      background: #e6c3ae;
+      background: #e8b6a1;
     }
 
     .submit-btn {
-      margin-top: 1rem;
-      background: #b89c8a;
+      display: block;
+      width: 100%;
+      padding: 0.9rem;
+      background: #c69a87;
       color: white;
+      font-weight: 600;
       border: none;
-      padding: 0.8rem 1.5rem;
-      border-radius: 0.5rem;
-      font-size: 1rem;
+      border-radius: 1rem;
       cursor: pointer;
+      transition: background 0.3s ease;
     }
 
     .submit-btn:hover {
-      background: #a27e6b;
+      background: #aa7f6c;
+    }
+
+    input[type="radio"] {
+      display: none;
     }
 
   </style>
 </head>
 <body>
 
-  <!-- Step Radio Controls -->
+  <!-- Radio Step Controls -->
   <input type="radio" name="step" id="step1" checked>
   <input type="radio" name="step" id="step2">
   <input type="radio" name="step" id="step3">
   <input type="radio" name="step" id="step4">
 
   <div class="form-container">
-     
     <!-- Progress Bar -->
     <div class="progress"><div class="bar"></div></div>
 
-    <!-- Step Navigation -->
+    <!-- Step Nav -->
     <div class="steps">
       <label class="step-label" for="step1">1</label>
       <label class="step-label" for="step2">2</label>
@@ -149,17 +168,16 @@
       <label class="step-label" for="step4">4</label>
     </div>
 
-    <!-- Step 1 -->
+    <!-- Steps -->
     <div class="step step1">
       <p>👤 What’s your name?</p>
-      <input type="text" name="name" placeholder="Type your name" required />
+      <input type="text" name="name" placeholder="Enter your name" required />
       <label for="step2" class="next">Next ➡️</label>
     </div>
 
-    <!-- Step 2 -->
     <div class="step step2">
       <p>🍁 Pick your favorite season:</p>
-       <select name="season" required>
+      <select name="season" required>
         <option value="">-- Choose One --</option>
         <option>Spring</option>
         <option>Summer</option>
@@ -169,7 +187,6 @@
       <label for="step3" class="next">Next ➡️</label>
     </div>
 
-    <!-- Step 3 -->
     <div class="step step3">
       <p>🌼 What’s your current mood?</p>
       <select name="mood" required>
@@ -182,12 +199,12 @@
       <label for="step4" class="next">Next ➡️</label>
     </div>
 
-    <!-- Step 4 -->
     <div class="step step4">
       <p>🌸 Ready to find your cottagecore vibe?</p>
       <button type="submit" class="submit-btn">Reveal My Result 🎁</button>
     </div>
-  </form>
+  </div>
 
 </body>
 </html>
+
