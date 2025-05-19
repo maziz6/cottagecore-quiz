@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cottagecore Quiz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: #fff8f0;
+      padding: 2rem;
+      color: #4b3b36;
+    }
+
+    .form-container {
+      max-width: 500px;
+      margin: auto;
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    .progress {
+      height: 8px;
+      background: #f0e1d6;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .bar {
+      height: 100%;
+      background: #b89c8a;
+      width: 25%;
+      transition: width 0.4s ease-in-out;
+    }
+
+    input[type="radio"] {
+      display: none;
+    }
+
+    .steps label.step-label {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      background: #fae6dd;
+      border-radius: 50%;
+      text-align: center;
+      margin: 0 5px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: all 0.2s ease-in-out;
+    }
+
+    .steps {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .step {
+      display: none;
+    }
+
+    #step1:checked ~ .form-container .bar { width: 25%; }
+    #step2:checked ~ .form-container .bar { width: 50%; }
+    #step3:checked ~ .form-container .bar { width: 75%; }
+    #step4:checked ~ .form-container .bar { width: 100%; }
+
+    #step1:checked ~ .form-container .step1,
+    #step2:checked ~ .form-container .step2,
+    #step3:checked ~ .form-container .step3,
+    #step4:checked ~ .form-container .step4 {
+      display: block;
+    }
+
+    .step p {
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .step input[type="text"],
+    .step select {
+      display: block;
+      margin: 0.5rem auto;
+      padding: 0.6rem 1rem;
+      width: 80%;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+      background: #f9f4ef;
+    }
+
+    .step label.next {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.6rem 1.2rem;
+      background: #f3d7c4;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-weight: bold;
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .step label.next:hover {
+      background: #e6c3ae;
+    }
+
+    .submit-btn {
+      margin-top: 1rem;
+      background: #b89c8a;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .submit-btn:hover {
+      background: #a27e6b;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Step Radio Controls -->
+  <input type="radio" name="step" id="step1" checked>
+  <input type="radio" name="step" id="step2">
+  <input type="radio" name="step" id="step3">
+  <input type="radio" name="step" id="step4">
+
+  <div class="form-container">
+     
+    <!-- Progress Bar -->
+    <div class="progress"><div class="bar"></div></div>
+
+    <!-- Step Navigation -->
+    <div class="steps">
+      <label class="step-label" for="step1">1</label>
+      <label class="step-label" for="step2">2</label>
+      <label class="step-label" for="step3">3</label>
+      <label class="step-label" for="step4">4</label>
+    </div>
+
+    <!-- Step 1 -->
+    <div class="step step1">
+      <p>👤 What’s your name?</p>
+      <input type="text" name="name" placeholder="Type your name" required />
+      <label for="step2" class="next">Next ➡️</label>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step step2">
+      <p>🍁 Pick your favorite season:</p>
+       <select name="season" required>
+        <option value="">-- Choose One --</option>
+        <option>Spring</option>
+        <option>Summer</option>
+        <option>Autumn</option>
+        <option>Winter</option>
+      </select>
+      <label for="step3" class="next">Next ➡️</label>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="step step3">
+      <p>🌼 What’s your current mood?</p>
+      <select name="mood" required>
+        <option value="">-- Choose One --</option>
+        <option>Whimsical</option>
+        <option>Soft & Calm</option>
+        <option>Warm & Cozy</option>
+        <option>Dreamy</option>
+      </select>
+      <label for="step4" class="next">Next ➡️</label>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="step step4">
+      <p>🌸 Ready to find your cottagecore vibe?</p>
+      <button type="submit" class="submit-btn">Reveal My Result 🎁</button>
+    </div>
+  </form>
+
+</body>
+</html>
