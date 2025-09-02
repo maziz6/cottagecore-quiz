@@ -1,387 +1,518 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Discover Your Cottagecore Vibe | Quiz</title>
-  <meta name="description" content="Take this charming quiz to discover your perfect cottagecore aesthetic">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --cream: #fdf6f0;
-      --peach: #f7e4d8;
-      --light-peach: #ffeae1;
-      --muted-pink: #f6cdbd;
-      --dusty-pink: #e8b6a1;
-      --taupe: #dda89b;
-      --mocha: #c69a87;
-      --warm-brown: #aa7f6c;
-      --chocolate: #5a453b;
-      --brown: #3e3028;
-      --border-radius: 1.25rem;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Outfit', sans-serif;
-      background: linear-gradient(135deg, var(--cream), var(--peach));
-      padding: 1rem;
-      color: var(--brown);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      line-height: 1.6;
-    }
-
-    .form-container {
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-radius: var(--border-radius);
-      padding: 2.5rem;
-      max-width: 500px;
-      width: 100%;
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
-      animation: fadeIn 0.8s ease forwards;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
-    }
-
-    h1 {
-      font-family: 'Playfair Display', serif;
-      text-align: center;
-      margin-bottom: 1.5rem;
-      color: var(--chocolate);
-      font-weight: 500;
-      font-size: 2rem;
-    }
-
-    .progress {
-      height: 10px;
-      background: var(--light-peach);
-      border-radius: 999px;
-      overflow: hidden;
-      margin-bottom: 2rem;
-      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-    }
-
-    .bar {
-      height: 100%;
-      background: linear-gradient(90deg, var(--taupe), var(--mocha));
-      width: 25%;
-      transition: width 0.5s cubic-bezier(0.65, 0, 0.35, 1);
-    }
-
-    .steps {
-      display: flex;
-      justify-content: center;
-      gap: 0.75rem;
-      margin-bottom: 2.5rem;
-      position: relative;
-    }
-
-    .steps::before {
-      content: '';
-      position: absolute;
-      top: 21px;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: var(--light-peach);
-      z-index: 0;
-    }
-
-    .step-label {
-      display: inline-flex;
-      width: 44px;
-      height: 44px;
-      background: var(--light-peach);
-      color: var(--chocolate);
-      border-radius: 50%;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-      z-index: 1;
-      border: 2px solid white;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .step-label:hover {
-      transform: scale(1.1);
-      background: var(--muted-pink);
-    }
-
-    .step-label.active {
-      background: var(--mocha);
-      color: white;
-      transform: scale(1.1);
-    }
-
-    .step {
-      display: none;
-      animation: fadeIn 0.6s ease forwards;
-    }
-
-    #step1:checked ~ .form-container .bar { width: 25%; }
-    #step2:checked ~ .form-container .bar { width: 50%; }
-    #step3:checked ~ .form-container .bar { width: 75%; }
-    #step4:checked ~ .form-container .bar { width: 100%; }
-
-    #step1:checked ~ .form-container .step-label[for="step1"],
-    #step2:checked ~ .form-container .step-label[for="step2"],
-    #step3:checked ~ .form-container .step-label[for="step3"],
-    #step4:checked ~ .form-container .step-label[for="step4"] {
-      background: var(--mocha);
-      color: white;
-    }
-
-    #step1:checked ~ .form-container .step1,
-    #step2:checked ~ .form-container .step2,
-    #step3:checked ~ .form-container .step3,
-    #step4:checked ~ .form-container .step4 {
-      display: block;
-    }
-
-    .step p {
-      margin-bottom: 1.5rem;
-      font-size: 1.15rem;
-      text-align: center;
-    }
-
-    .step .emoji {
-      font-size: 1.5rem;
-      display: inline-block;
-      animation: float 3s ease-in-out infinite;
-    }
-
-    .step input[type="text"],
-    .step select {
-      width: 100%;
-      padding: 1rem 1.25rem;
-      margin-bottom: 1.5rem;
-      font-size: 1rem;
-      border-radius: var(--border-radius);
-      border: 1px solid rgba(221, 208, 198, 0.7);
-      background: rgba(255, 253, 252, 0.8);
-      transition: all 0.3s ease;
-      font-family: 'Outfit', sans-serif;
-    }
-
-    .step input[type="text"]:focus,
-    .step select:focus {
-      outline: none;
-      border-color: var(--taupe);
-      box-shadow: 0 0 0 3px rgba(221, 168, 155, 0.2);
-    }
-
-    .step input[type="text"]::placeholder {
-      color: #b3a599;
-    }
-
-    .step label.next {
-      display: block;
-      background: var(--muted-pink);
-      padding: 1rem 1.5rem;
-      text-align: center;
-      border-radius: var(--border-radius);
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      color: var(--chocolate);
-      box-shadow: 0 4px 12px rgba(198, 154, 135, 0.2);
-      margin-top: 0.5rem;
-    }
-
-    .step label.next:hover {
-      background: var(--dusty-pink);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(198, 154, 135, 0.3);
-    }
-
-    .step label.next:active {
-      transform: translateY(0);
-    }
-
-    .submit-btn {
-      display: block;
-      width: 100%;
-      padding: 1.1rem;
-      background: var(--mocha);
-      color: white;
-      font-weight: 700;
-      border: none;
-      border-radius: var(--border-radius);
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-size: 1rem;
-      box-shadow: 0 4px 12px rgba(198, 154, 135, 0.3);
-      font-family: 'Outfit', sans-serif;
-    }
-
-    .submit-btn:hover {
-      background: var(--warm-brown);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(170, 127, 108, 0.3);
-    }
-
-    .submit-btn:active {
-      transform: translateY(0);
-    }
-
-    input[type="radio"] {
-      position: absolute;
-      opacity: 0;
-    }
-
-    select {
-      appearance: none;
-      -webkit-appearance: none;
-      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%235a453b'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
-      background-repeat: no-repeat;
-      background-position: right 1rem center;
-      background-size: 1rem;
-    }
-
-    @media (max-width: 480px) {
-      .form-container {
-        padding: 1.75rem;
-      }
-      
-      h1 {
-        font-size: 1.75rem;
-      }
-      
-      .step p {
-        font-size: 1.05rem;
-      }
-      
-      .step-label {
-        width: 38px;
-        height: 38px;
-        font-size: 0.9rem;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cottagecore Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #f9f4f5 0%, #f2e8e4 100%);
+            color: #5a4b4b;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(163, 143, 143, 0.15);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #e6b8b8 0%, #c9e4c5 33%, #b5d8eb 66%, #d9c2e6 100%);
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 20px 20px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23e6b8b8" opacity="0.2" d="M50,30c5.5,0,10,4.5,10,10c0,5.5-4.5,10-10,10c-5.5,0-10-4.5-10-10C40,34.5,44.5,30,50,30z M50,0c5.5,0,10,4.5,10,10c0,5.5-4.5,10-10,10c-5.5,0-10-4.5-10-10C40,4.5,44.5,0,50,0z M50,60c5.5,0,10,4.5,10,10c0,5.5-4.5,10-10,10c-5.5,0-10-4.5-10-10C40,64.5,44.5,60,50,60z M20,30c5.5,0,10,4.5,10,10c0,5.5-4.5,10-10,10c-5.5,0-10-4.5-10-10C10,34.5,14.5,30,20,30z M80,30c5.5,0,10,4.5,10,10c0,5.5-4.5,10-10,10c-5.5,0-10-4.5-10-10C70,34.5,74.5,30,80,30z"></path></svg>');
+            background-color: #fcf7f8;
+            border-bottom: 1px solid #f0e6e6;
+        }
+        
+        h1 {
+            color: #7e6363;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            color: #a98484;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+        
+        .progress-container {
+            width: 80%;
+            height: 12px;
+            background: #f0e6e6;
+            border-radius: 10px;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            width: 20%;
+            background: linear-gradient(90deg, #e6b8b8 0%, #d4a5a5 100%);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+        
+        .progress-text {
+            font-size: 0.9rem;
+            color: #a98484;
+            margin-bottom: 25px;
+        }
+        
+        .quiz-content {
+            padding: 30px;
+        }
+        
+        h2 {
+            color: #7e6363;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .option input {
+            display: none;
+        }
+        
+        .option label {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: #fcf7f8;
+            border: 2px solid #f0e6e6;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .option label:hover {
+            border-color: #e6b8b8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(163, 143, 143, 0.1);
+        }
+        
+        .option input:checked + label {
+            border-color: #d4a5a5;
+            background: #fceded;
+        }
+        
+        .option i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+            color: #d4a5a5;
+            width: 24px;
+            text-align: center;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-prev {
+            background: #f0e6e6;
+            color: #7e6363;
+        }
+        
+        .btn-prev:hover {
+            background: #e6d6d6;
+        }
+        
+        .btn-next {
+            background: #d4a5a5;
+            color: white;
+        }
+        
+        .btn-next:hover {
+            background: #c99595;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 165, 165, 0.3);
+        }
+        
+        .step {
+            display: none;
+        }
+        
+        .step:first-of-type {
+            display: block;
+        }
+        
+        .result {
+            text-align: center;
+            padding: 40px 30px;
+        }
+        
+        .result-img {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: #fcf7f8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 5px solid #f0e6e6;
+            overflow: hidden;
+        }
+        
+        .result-img i {
+            font-size: 80px;
+            color: #d4a5a5;
+        }
+        
+        .result-title {
+            font-size: 1.8rem;
+            color: #7e6363;
+            margin-bottom: 15px;
+        }
+        
+        .result-desc {
+            color: #5a4b4b;
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+        
+        .btn-restart {
+            background: #c9e4c5;
+            color: #5a4b4b;
+        }
+        
+        .btn-restart:hover {
+            background: #b5d8eb;
+        }
+        
+        .flower-decoration {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><path fill="%23d4a5a5" opacity="0.6" d="M20,5c2.2,0,4,1.8,4,4c0,2.2-1.8,4-4,4c-2.2,0-4-1.8-4-4C16,6.8,17.8,5,20,5z M20,0c2.2,0,4,1.8,4,4c0,2.2-1.8,4-4,4c-2.2,0-4-1.8-4-4C16,1.8,17.8,0,20,0z M20,10c2.2,0,4,1.8,4,4c0,2.2-1.8,4-4,4c-2.2,0-4-1.8-4-4C16,11.8,17.8,10,20,10z M10,5c2.2,0,4,1.8,4,4c0,2.2-1.8,4-4,4c-2.2,0-4-1.8-4-4C6,6.8,7.8,5,10,5z M30,5c2.2,0,4,1.8,4,4c0,2.2-1.8,4-4,4c-2.2,0-4-1.8-4-4C26,6.8,27.8,5,30,5z"></path></svg>');
+        }
+        
+        .flower-1 {
+            top: 15px;
+            left: 15px;
+        }
+        
+        .flower-2 {
+            bottom: 15px;
+            right: 15px;
+            transform: rotate(45deg);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 650px) {
+            .options {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .result-img {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .result-img i {
+                font-size: 60px;
+            }
+        }
+    </style>
 </head>
 <body>
-
-  <!-- Radio Step Controls -->
-  <input type="radio" name="step" id="step1" checked>
-  <input type="radio" name="step" id="step2">
-  <input type="radio" name="step" id="step3">
-  <input type="radio" name="step" id="step4">
-
-  <div class="form-container">
-    <h1>Discover Your Cottagecore Vibe</h1>
-    
-    <!-- Progress Bar -->
-    <div class="progress"><div class="bar"></div></div>
-
-    <!-- Step Nav -->
-    <div class="steps">
-      <label class="step-label active" for="step1">1</label>
-      <label class="step-label" for="step2">2</label>
-      <label class="step-label" for="step3">3</label>
-      <label class="step-label" for="step4">4</label>
-    </div>
-
-    <!-- Steps -->
-    <div class="step step1">
-      <p><span class="emoji">👤</span> What's your name, wanderer?</p>
-      <input type="text" name="name" placeholder="Enter your name" required aria-label="Your name">
-      <label for="step2" class="next" tabindex="0">Next ➡️</label>
-    </div>
-
-    <div class="step step2">
-      <p><span class="emoji">🍁</span> Which season speaks to your soul?</p>
-      <select name="season" required aria-label="Favorite season">
-        <option value="">-- Choose One --</option>
-        <option value="spring">Spring 🌸</option>
-        <option value="summer">Summer ☀️</option>
-        <option value="autumn">Autumn 🍂</option>
-        <option value="winter">Winter ❄️</option>
-      </select>
-      <label for="step3" class="next" tabindex="0">Next ➡️</label>
-    </div>
-
-    <div class="step step3">
-      <p><span class="emoji">🌼</span> How's your heart feeling today?</p>
-      <select name="mood" required aria-label="Current mood">
-        <option value="">-- Choose One --</option>
-        <option value="whimsical">Whimsical ✨</option>
-        <option value="calm">Soft & Calm 🕊️</option>
-        <option value="cozy">Warm & Cozy 🧶</option>
-        <option value="dreamy">Dreamy 🌙</option>
-      </select>
-      <label for="step4" class="next" tabindex="0">Next ➡️</label>
-    </div>
-
-    <div class="step step4">
-      <p><span class="emoji">🌸</span> Ready to discover your perfect cottagecore aesthetic?</p>
-      <button type="submit" class="submit-btn">Reveal My Cottagecore Vibe 🎁</button>
-    </div>
-  </div>
-
-  <script>
-    // Add basic form validation and submission handling
-    document.addEventListener('DOMContentLoaded', function() {
-      const formContainer = document.querySelector('.form-container');
-      const nextButtons = document.querySelectorAll('.next');
-      
-      // Add focus styles for keyboard navigation
-      nextButtons.forEach(button => {
-        button.addEventListener('focus', () => {
-          button.style.boxShadow = '0 0 0 3px rgba(198, 154, 135, 0.5)';
-        });
+    <div class="container">
+        <div class="flower-decoration flower-1"></div>
+        <div class="flower-decoration flower-2"></div>
         
-        button.addEventListener('blur', () => {
-          button.style.boxShadow = '';
-        });
-      });
-      
-      // Simple validation before proceeding to next step
-      nextButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-          const currentStep = button.closest('.step');
-          const inputs = currentStep.querySelectorAll('[required]');
-          let isValid = true;
-          
-          inputs.forEach(input => {
-            if (!input.value) {
-              input.style.borderColor = '#e88a8a';
-              isValid = false;
-              setTimeout(() => {
-                input.style.borderColor = '';
-              }, 2000);
+        <header>
+            <h1>Cottagecore Quiz</h1>
+            <p class="subtitle">Discover your soft, cozy cottagecore style</p>
+            
+            <div class="progress-container">
+                <div class="progress-bar"></div>
+            </div>
+            <p class="progress-text">Question 1 of 5</p>
+        </header>
+        
+        <div class="quiz-content">
+            <!-- Step 1 -->
+            <div class="step">
+                <h2>What's your ideal day off?</h2>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q1a1" name="question1">
+                        <label for="q1a1"><i class="fas fa-book"></i> Reading in a cozy nook</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q1a2" name="question1">
+                        <label for="q1a2"><i class="fas fa-seedling"></i> Gardening and tending to plants</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q1a3" name="question1">
+                        <label for="q1a3"><i class="fas fa-hiking"></i> A peaceful walk in the woods</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q1a4" name="question1">
+                        <label for="q1a4"><i class="fas fa-utensils"></i> Baking homemade treats</label>
+                    </div>
+                </div>
+                <div class="navigation">
+                    <button class="btn btn-prev" disabled><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button class="btn btn-next">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <!-- Step 2 -->
+            <div class="step">
+                <h2>Which accessory would you choose?</h2>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q2a1" name="question2">
+                        <label for="q2a1"><i class="fas fa-crown"></i> A flower crown</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q2a2" name="question2">
+                        <label for="q2a2"><i class="fas fa-scarf"></i> A knitted scarf</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q2a3" name="question2">
+                        <label for="q2a3"><i class="fas fa-ring"></i> A vintage locket</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q2a4" name="question2">
+                        <label for="q2a4"><i class="fas fa-basket-shopping"></i> A wicker basket</label>
+                    </div>
+                </div>
+                <div class="navigation">
+                    <button class="btn btn-prev"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button class="btn btn-next">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <!-- Step 3 -->
+            <div class="step">
+                <h2>What's your favorite season?</h2>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q3a1" name="question3">
+                        <label for="q3a1"><i class="fas fa-cloud-sun"></i> Spring - when flowers bloom</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q3a2" name="question3">
+                        <label for="q3a2"><i class="fas fa-sun"></i> Summer - sunny and warm</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q3a3" name="question3">
+                        <label for="q3a3"><i class="fas fa-leaf"></i> Autumn - cozy and colorful</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q3a4" name="question3">
+                        <label for="q3a4"><i class="fas fa-snowflake"></i> Winter - quiet and serene</label>
+                    </div>
+                </div>
+                <div class="navigation">
+                    <button class="btn btn-prev"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button class="btn btn-next">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <!-- Step 4 -->
+            <div class="step">
+                <h2>Choose a cozy beverage</h2>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q4a1" name="question4">
+                        <label for="q4a1"><i class="fas fa-mug-hot"></i> Herbal tea with honey</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q4a2" name="question4">
+                        <label for="q4a2"><i class="fas fa-coffee"></i> Homemade coffee with cream</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q4a3" name="question4">
+                        <label for="q4a3"><i class="fas fa-glass"></i> Freshly squeezed lemonade</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q4a4" name="question4">
+                        <label for="q4a4"><i class="fas fa-mug"></i> Hot chocolate with marshmallows</label>
+                    </div>
+                </div>
+                <div class="navigation">
+                    <button class="btn btn-prev"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button class="btn btn-next">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <!-- Step 5 -->
+            <div class="step">
+                <h2>Which sounds most appealing?</h2>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q5a1" name="question5">
+                        <label for="q5a1"><i class="fas fa-music"></i> Birds chirping at dawn</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q5a2" name="question5">
+                        <label for="q5a2"><i class="fas fa-wind"></i> Rustling leaves in the wind</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q5a3" name="question5">
+                        <label for="q5a3"><i class="fas fa-fire"></i> Crackling of a fireplace</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q5a4" name="question5">
+                        <label for="q5a4"><i class="fas fa-tint"></i> Gentle rain on the roof</label>
+                    </div>
+                </div>
+                <div class="navigation">
+                    <button class="btn btn-prev"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button class="btn btn-next">See Results <i class="fas fa-bloom"></i></button>
+                </div>
+            </div>
+            
+            <!-- Results -->
+            <div class="step">
+                <div class="result">
+                    <div class="result-img">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h2 class="result-title">Meadow Dreamer</h2>
+                    <p class="result-desc">
+                        Your cottagecore aesthetic is all about flower fields and sunny days! You love picnics in meadows, 
+                        making flower crowns, and the gentle warmth of the sun on your skin. Your style is light, airy, and 
+                        filled with soft pastels and floral patterns.
+                    </p>
+                    <button class="btn btn-restart"><i class="fas fa-redo"></i> Take Again</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple JavaScript for navigation (since CSS-only is quite limited for multi-step forms)
+        // This is a basic implementation for functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const steps = document.querySelectorAll('.step');
+            const nextButtons = document.querySelectorAll('.btn-next');
+            const prevButtons = document.querySelectorAll('.btn-prev');
+            const progressBar = document.querySelector('.progress-bar');
+            const progressText = document.querySelector('.progress-text');
+            let currentStep = 0;
+            
+            // Update progress
+            function updateProgress() {
+                const percent = (currentStep / (steps.length - 1)) * 100;
+                progressBar.style.width = percent + '%';
+                progressText.textContent = `Question ${currentStep + 1} of ${steps.length - 1}`;
+                
+                if (currentStep === steps.length - 1) {
+                    progressText.textContent = 'Completed!';
+                }
             }
-          });
-          
-          if (!isValid) {
-            e.preventDefault();
-          }
+            
+            // Show current step
+            function showStep(stepIndex) {
+                steps.forEach((step, index) => {
+                    step.style.display = index === stepIndex ? 'block' : 'none';
+                });
+                
+                // Disable prev button on first step
+                if (stepIndex === 0) {
+                    document.querySelector('.btn-prev').disabled = true;
+                } else {
+                    document.querySelector('.btn-prev').disabled = false;
+                }
+                
+                updateProgress();
+            }
+            
+            // Next button event listeners
+            nextButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    if (currentStep < steps.length - 1) {
+                        currentStep++;
+                        showStep(currentStep);
+                    }
+                });
+            });
+            
+            // Previous button event listeners
+            prevButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    if (currentStep > 0) {
+                        currentStep--;
+                        showStep(currentStep);
+                    }
+                });
+            });
+            
+            // Restart button
+            const restartButton = document.querySelector('.btn-restart');
+            if (restartButton) {
+                restartButton.addEventListener('click', function() {
+                    currentStep = 0;
+                    showStep(currentStep);
+                    
+                    // Clear all selections
+                    document.querySelectorAll('input[type="radio"]').forEach(input => {
+                        input.checked = false;
+                    });
+                });
+            }
+            
+            // Initialize
+            showStep(currentStep);
         });
-      });
-    });
-  </script>
+    </script>
 </body>
 </html>
