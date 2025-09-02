@@ -4,10 +4,25 @@ A dreamy, multi-step quiz built with pure HTML and CSS to help users discover th
 
 ## Features
 
-- Multi-step form with progress tracking
-- Responsive, mobile-friendly design
-- No JavaScript — just HTML + CSS magic
-- Wholesome aesthetic inspired by vintage & nature
+Dreamy Cottagecore Design:
+Soft pastel color palette with pinks, creams, and muted tones
+Floral decorative elements and icons
+Rounded corners and soft shadows for a cozy feel
+
+Multi-Step Form:
+Five questions about preferences and lifestyle
+Progress bar to show completion status
+Navigation between steps
+
+Responsive Layout:
+Works on mobile and desktop devices
+Adjusts from two columns to one on smaller screens
+
+Visual Results:
+Displays a personalized cottagecore aesthetic result
+Option to restart the quiz
+
+The design captures the essence of cottagecore with its soft, nature-inspired aesthetic while providing a smooth user experience. The quiz is both visually appealing and functional, creating an immersive experience for users to discover their cottagecore style.
 
 ## Built With
 
