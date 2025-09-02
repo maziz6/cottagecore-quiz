@@ -1,6 +1,6 @@
 # Cottagecore Quiz
 
-A dreamy, multi-step quiz built with pure HTML and CSS to help users discover their soft, cozy cottagecore aesthetic. Think flower crowns, soft pastels, and peaceful forest walks — in quiz form.
+A dreamy, multi-step quiz built with pure HTML and CSS to help users discover their soft, cozy cottagecore aesthetic. Think flower crowns, soft pastels, and peaceful forest walks in quiz form.
 
 ## Features
 
